@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from matplotlib.text import Annotation
 
 
+# Edit the text on the tree node
 def edit_node(node):
     if type(node) == Annotation:
         txt = node.get_text()
@@ -21,6 +22,7 @@ def edit_node(node):
     return node
 
 
+# Train a decision tree
 def train_decision_tree(features, target, num_clusters, max_depth):
     features_train, features_test, target_train, target_test = train_test_split(features, target, test_size=0.8,
                                                                                 random_state=1)
@@ -132,6 +134,8 @@ if __name__ == '__main__':
         clustering = sch.linkage(dataset_encoded_norm, method='ward')
         sch.dendrogram(clustering)
         plt.show()
+
+        # Elbow method
         num_clusters = range(2, 21)
         clusters_SSEs = []
         for k in num_clusters:
@@ -145,6 +149,7 @@ if __name__ == '__main__':
         optimal_num_clusters = round(kneedle.elbow)
         kneedle.plot_knee()
         plt.show()
+
         print("\nThe optimal number of clusters is " + str(optimal_num_clusters))
         clustering_result = sch.fcluster(clustering, optimal_num_clusters, 'maxclust')
         result = dataset.copy(True)
